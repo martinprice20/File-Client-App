@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">File Client App</string>
+    <string name="file_contents_label_text">File contents:</string>
+    <string name="file_contents">File Contents:</string>
+    <string name="get_files">Get Files</string>
+    <string name="save_to_file">Save to File</string>
+    <string name="io_exception_msg">There was and error creating the file</string>
+    <string name="file_no_content_error">The chosen file has not contents</string>
+    <string name="file_no_content_error_msg">The file cannot be blank. Add a file with some content</string>
+    <string name="create_file_success">The file was created!</string>
+</resources>

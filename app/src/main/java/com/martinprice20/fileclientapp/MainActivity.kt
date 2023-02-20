@@ -10,17 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.martinprice20.fileclientapp.databinding.ActivityMainBinding
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.lang.Byte
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.nio.file.StandardCopyOption
+import java.io.*
 
 private const val MAIN_ACTIVITY = "MainActivity"
 
@@ -67,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 Toast.makeText(this, getString(R.string.create_file_success),
                     Toast.LENGTH_SHORT).show()
-                fileContents.setText("")
+                fileContents.text.clear()
             } catch (e: IOException) {
                 Log.e(TAG, resources.getString(R.string.io_exception_msg))
             }
@@ -82,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         startActivityForResult(requestFileIntent, 0)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -109,7 +100,5 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val FILE_PATH = "secretdata"
         const val TAG = "Main Activity"
-
-
     }
 }

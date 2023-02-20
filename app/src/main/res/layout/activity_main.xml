@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/file_contents_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -51,6 +49,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

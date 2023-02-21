@@ -1,13 +1,13 @@
 package com.martinprice20.fileclientapp
 
-import android.content.ContentResolver
-import android.content.Intent
+import android.content.*
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.martinprice20.fileclientapp.databinding.ActivityMainBinding
 import java.io.*
@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var inputPFD: ParcelFileDescriptor
     private lateinit var contentResolver: ContentResolver
     private val sb = StringBuilder()
+    private val cryptoHelper = CryptoHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +42,36 @@ class MainActivity : AppCompatActivity() {
         binding.saveToFileButton.setOnClickListener {
             saveToFile()
         }
+
+        cryptoHelper.generateECkeys()
+        binding.getPublicKeyButton.setOnClickListener {
+            getPublicKey()
+        }
+
+    }
+
+    private fun getPublicKey() {
+        this.let {
+            val builder = AlertDialog.Builder(it)
+            builder.apply {
+                setPositiveButton("Copy"
+                ) { dialog, id ->
+                    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clip = ClipData.newPlainText("", cryptoHelper.getPublicKey())
+                    clipboard.setPrimaryClip(clip)
+                    Toast.makeText(this.context, "public key has been saved to clipboard", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                }
+                setNegativeButton("Cancel"
+                ) { dialog, id ->
+                    dialog.dismiss()
+                }
+                setTitle(R.string.get_public_key)
+                setMessage(cryptoHelper.getPublicKey())
+
+            }
+            builder.create()
+        }.show()
     }
 
     private fun saveToFile() {
@@ -96,6 +127,8 @@ class MainActivity : AppCompatActivity() {
         }
         fileContents.setText(sb.toString())
     }
+
+
 
     companion object {
         const val FILE_PATH = "secretdata"
